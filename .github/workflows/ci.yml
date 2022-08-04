@@ -29,7 +29,7 @@ jobs:
       with:
         path: ~/.cache/pypoetry/virtualenvs
         key: ${{ runner.os }}-poetry-${{ hashFiles('poetry.lock') }}
-    - run: poetry --version && poetry config virtualenvs.create false
+    - run: poetry --version
 
     - name: Install OS dependencies
       run: |
