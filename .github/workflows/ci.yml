@@ -43,5 +43,4 @@ jobs:
         poetry install
     - name: Run unit tests
       run: |
-        poetry shell
-        pytest
+        poetry run pytest
