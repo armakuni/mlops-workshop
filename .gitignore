@@ -130,5 +130,10 @@ dmypy.json
 
 requirements.txt
 
-# data related stuff
-data/**
+# terraform/terragrunt
+.terraform
+*.tfstate
+*.tfstate.backup
+.terragrunt-cache
+.terraform.lock.hcl
+terragrunt
