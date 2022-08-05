@@ -5,6 +5,9 @@ on:
       - '**'
     paths:
       - 'terraform/**'
+    paths-ignore:
+      - '.github/workflows/ci.yml'
+
 
 permissions:
   contents: read
