@@ -5,6 +5,7 @@ on:
       - '**'
     paths:
       - 'terraform/**'
+      - '.github/workflows/tf.yml'
 
 permissions:
   contents: read
