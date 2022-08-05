@@ -1,7 +1,7 @@
 {
     "AWSEBDockerrunVersion": "1",
     "Image": {
-      "Name": "<OUR CONTAINER IMAGE NAME GOES HERE>",
+      "Name": "<OUR CONTAINER IMAGE NAME GOES IN HERE>",
       "Update": "true"
     },
     "Ports": [
