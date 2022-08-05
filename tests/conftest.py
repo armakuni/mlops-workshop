@@ -1,5 +1,5 @@
 import pytest
-from src.app import create_app
+from mlops_api.app import create_app
 
 
 @pytest.fixture()

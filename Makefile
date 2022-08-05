@@ -25,3 +25,5 @@ tf-plan-app:
 tf-apply-app:
 	@terragrunt apply --terragrunt-working-dir terraform/app --terragrunt-non-interactive --auto-approve
 
+docker-build:
+	@docker build -t mlops-intro .

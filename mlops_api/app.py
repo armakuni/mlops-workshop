@@ -1,6 +1,6 @@
 from flask import Flask
 
-import src.routes as routes
+import mlops_api.routes as routes
 
 
 def create_app() -> Flask:
@@ -12,3 +12,5 @@ def create_app() -> Flask:
 
 
 app = create_app()
+
+

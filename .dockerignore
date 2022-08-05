@@ -1,0 +1,10 @@
+.devcontainer
+.github
+.mypy_cache
+.pytest_cache
+README.md
+notebooks
+requirements.txt
+terraform
+.venv
+.vscode
