@@ -8,5 +8,9 @@
       {
         "ContainerPort": "80"
       }
-    ]
+    ],
+    "Authentication": {
+      "bucket": "mlops-intro-eb",
+      "key": "dockercfg"
+    }
   }

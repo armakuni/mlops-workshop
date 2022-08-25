@@ -2,6 +2,10 @@ variable "artefact_source" {
   type = string
 }
 
+variable "dockercfg_source" {
+  type = string
+}
+
 variable "eb_name" {
   type = string
   default = "mlops-intro-eb"

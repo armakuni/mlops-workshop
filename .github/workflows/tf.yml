@@ -38,6 +38,7 @@ jobs:
         docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
         cp terraform/app/Dockerrun.aws.template.json terraform/app/Dockerrun.aws.json
         sed -i "s#<IMAGE_NAME>#${REGISTRY}/${REPOSITORY}:${IMAGE_TAG}#g" terraform/app/Dockerrun.aws.json
+        cp ~/.docker/config.json terraform/app/dockercfg.json
 
     - name: Install terraform
       uses: hashicorp/setup-terraform@v1
