@@ -155,7 +155,7 @@ resource "aws_network_interface" "nic2" {
 # Network ACL ---
 ################################################################################
 
-resource "aws_network_acl" "fwmt-acl-pub" {
+resource "aws_network_acl" "acl_pub" {
   egress {
     action     = "allow"
     cidr_block = "0.0.0.0/0"
@@ -169,16 +169,7 @@ resource "aws_network_acl" "fwmt-acl-pub" {
 
   ingress {
     action     = "allow"
-    cidr_block = "${var.vpc_ip}.0/24"
-    from_port  = "0"
-    protocol   = "tcp"
-    rule_no    = "100"
-    to_port    = "0"
-  }
-
-  ingress {
-    action     = "allow"
-    cidr_block = "${var.tm_ip}/32"
+    cidr_block = "10.0.0.0/24"
     from_port  = "0"
     protocol   = "tcp"
     rule_no    = "100"

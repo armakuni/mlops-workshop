@@ -88,8 +88,8 @@ resource "aws_elastic_beanstalk_application" "eb_app" {
 
 resource "aws_elastic_beanstalk_application_version" "eb_app_version" {
   application = aws_elastic_beanstalk_application.eb_app.name
-  bucket      = aws_s3_bucket.s3_bucket_myapp.id
-  key         = aws_s3_object.s3_object_myapp.id
+  bucket      = aws_s3_bucket.s3_bucket_eb_app.id
+  key         = aws_s3_object.s3_object_eb_app.id
   name        = var.app_version_name
 }
 
@@ -136,7 +136,7 @@ resource "aws_s3_bucket_public_access_block" "s3_public_block" {
   restrict_public_buckets = true
 }
 
-resource "aws_s3_object" "s3_object_myapp" {
+resource "aws_s3_object" "s3_object_eb_app" {
   bucket = aws_s3_bucket.s3_bucket_eb_app.id
   key    = "beanstalk/eb_app"
   source = var.artefact_source
