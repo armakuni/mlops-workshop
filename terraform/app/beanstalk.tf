@@ -141,7 +141,7 @@ resource "aws_s3_object" "s3_object_eb_app" {
   source = var.artefact_source
 }
 
-resource "aws_s3_object" "s3_object_eb_app" {
+resource "aws_s3_object" "s3_object_dockercfg" {
   bucket = aws_s3_bucket.s3_bucket_eb_app.id
   key    = "dockercfg"
   source = var.dockercfg_source
