@@ -22,3 +22,7 @@ variable "stream_logs" {
   type = bool
   default = true
 }
+
+variable "app_version_name"{
+  type = string
+}
