@@ -92,12 +92,13 @@ resource "aws_internet_gateway" "igw" {
 ################################################################################
 
 resource "aws_route_table" "public_route_table" {
-  route {
-    cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.igw.id
-  }
-
   vpc_id = aws_vpc.vpc.id
+}
+
+resource "aws_route" "public_route" {
+  route_table_id = aws_route_table.public_route_table.id
+  destination_cidr_block = "0.0.0.0/0"
+  gateway_id = aws_internet_gateway.igw.id
 }
 
 ################################################################################
@@ -160,29 +161,32 @@ resource "aws_network_interface" "nic2" {
 ################################################################################
 
 resource "aws_network_acl" "acl_pub" {
-  egress {
-    action     = "allow"
-    cidr_block = "0.0.0.0/0"
-    from_port  = "0"
-    icmp_code  = "0"
-    icmp_type  = "0"
-    protocol   = "-1"
-    rule_no    = "100"
-    to_port    = "0"
-  }
-
-  ingress {
-    action     = "allow"
-    cidr_block = "10.0.0.0/24"
-    from_port  = "0"
-    protocol   = "tcp"
-    rule_no    = "100"
-    to_port    = "0"
-  }
-
   subnet_ids = [aws_subnet.public_subnet1.id, aws_subnet.public_subnet2.id]
   vpc_id     = aws_vpc.vpc.id
+}
 
+resource "aws_network_acl_rule" "acl_rule_pub_ingress" {
+  network_acl_id = aws_network_acl.acl_pub.id
+  rule_action = "allow"
+  rule_number = "100"
+
+  egress = false
+  cidr_block = "0.0.0.0/0"
+  from_port  = 0
+  to_port    = 0
+  protocol   = "-1"
+}
+
+resource "aws_network_acl_rule" "acl_rule_pub_egress" {
+  network_acl_id = aws_network_acl.acl_pub.id
+  rule_action = "allow"
+  rule_number = "100"
+
+  egress = true
+  cidr_block = "0.0.0.0/0"
+  from_port  = 0
+  to_port    = 0
+  protocol   = "-1"
 }
 
 ################################################################################
