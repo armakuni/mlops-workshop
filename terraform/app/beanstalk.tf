@@ -100,8 +100,7 @@ resource "aws_elastic_beanstalk_application_version" "eb_app_version" {
 resource "aws_elastic_beanstalk_environment" "eb_env" {
   name                = var.eb_name
   application         = aws_elastic_beanstalk_application.eb_app.name
-  solution_stack_name = var.solution_stack_name
-  tier                = var.tier
+  solution_stack_name = "64bit Amazon Linux 2 v3.4.18 running Docker"
   version_label       = aws_elastic_beanstalk_application_version.eb_app_version.name
 
   dynamic "setting" {
