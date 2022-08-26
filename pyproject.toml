@@ -6,12 +6,9 @@ authors = ["Ross Parkin <ross.parkin@armakuni.com>"]
 
 [tool.poetry.dependencies]
 python = ">=3.9,<3.11"
-jupyter = "^1.0.0"
 pandas = "^1.3"
-openpyxl = "^3.0.10"
 sklearn = "^0.0"
 mlwrap = {git = "https://git@github.com/RToTheP/mlwrap.git", rev = "main"}
-matplotlib = "^3.5.2"
 Flask = "^2.2.1"
 gunicorn = "^20.1.0"
 
@@ -19,6 +16,9 @@ gunicorn = "^20.1.0"
 pytest = "^7.1.2"
 mypy = "^0.971"
 aws-google-auth = "^0.0.38"
+jupyter = "^1.0.0"
+openpyxl = "^3.0.10"
+matplotlib = "^3.5.2"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

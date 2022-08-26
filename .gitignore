@@ -139,5 +139,4 @@ requirements.txt
 terragrunt
 
 # Elastic Beanstalk
-Dockerrun.aws.json
 dockercfg
