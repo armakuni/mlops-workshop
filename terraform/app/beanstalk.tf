@@ -55,26 +55,11 @@ locals {
       name      = "InstanceTypes"
       value     = var.instance_types
     },
-    # {
-    #   namespace = "aws:ec2:vpc"
-    #   name      = "VPCId"
-    #   value     = aws_vpc.vpc.id
-    # },
     {
       namespace = "aws:ec2:vpc"
       name      = "ELBScheme"
       value     = "public"
     },
-    # {
-    #   namespace = "aws:ec2:vpc"
-    #   name      = "Subnets"
-    #   value     = join(",", [aws_subnet.public_subnet1.id,aws_subnet.public_subnet2.id])
-    # },
-    # {
-    #   namespace = "aws:ec2:vpc"
-    #   name      = "ELBSubnets"
-    #   value     = join(",", [aws_subnet.public_subnet1.id,aws_subnet.public_subnet2.id])
-    # }
   ]
 }
 
@@ -140,10 +125,3 @@ resource "aws_s3_object" "s3_object_eb_app" {
   key    = "beanstalk/eb_app"
   source = var.artefact_source
 }
-
-# resource "aws_s3_object" "s3_object_dockercfg" {
-#   bucket = aws_s3_bucket.s3_bucket_eb_app.id
-#   key    = "dockercfg"
-#   source = var.dockercfg_source
-# }
-
