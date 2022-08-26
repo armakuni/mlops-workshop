@@ -10,7 +10,7 @@
       }
     ],
     "Authentication": {
-      "bucket": "mlops-intro-eb",
+      "bucket": "mlops-intro-remote-state.s3.eu-west-2.amazonaws.com",
       "key": "dockercfg"
     }
   }
