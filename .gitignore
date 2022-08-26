@@ -137,3 +137,6 @@ requirements.txt
 .terragrunt-cache
 .terraform.lock.hcl
 terragrunt
+
+# Elastic Beanstalk
+Dockerrun.aws.json
