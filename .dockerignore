@@ -9,3 +9,4 @@ terraform
 .venv
 .vscode
 Dockerrun.aws.json
+data/**

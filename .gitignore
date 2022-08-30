@@ -138,5 +138,5 @@ requirements.txt
 .terraform.lock.hcl
 terragrunt
 
-# Elastic Beanstalk
-dockercfg
+# data
+data/cleaned.csv
