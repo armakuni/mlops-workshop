@@ -140,3 +140,5 @@ terragrunt
 
 # data
 data/cleaned.csv
+/models
+metrics.json
