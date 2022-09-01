@@ -22,6 +22,9 @@ tf-init-app:
 tf-plan-app:
 	@terragrunt plan --terragrunt-working-dir terraform/app
 
+tf-app-output-cname:
+	@terragrunt output cname --terragrunt-working-dir terraform/app
+
 tf-apply-app:
 	@terragrunt apply --terragrunt-working-dir terraform/app --terragrunt-non-interactive --auto-approve
 
