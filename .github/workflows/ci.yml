@@ -67,7 +67,9 @@ jobs:
         COMMIT_ID: ${{ github.sha }}
       run: |
         zip -r terraform/app/code-$COMMIT_ID.zip .
-        make tf-apply-app
+        make tf-app-apply
 
-    # - name: Smoke test
-    #   run: docker run -e API_HOST=$API_HOST mlops-intro pytest tests/smoke
+    - name: Smoke test
+      run: |
+        export API_HOST=$(make tf-app-output-cname)
+        docker run -e API_HOST=$API_HOST mlops-intro pytest tests/smoke

@@ -7,28 +7,31 @@ black:
 mypy:
 	mypy .
 
-tf-init-bootstrap:
+tf-bootstrap-init:
 	@terragrunt init --terragrunt-working-dir terraform/bootstrap
 
-tf-plan-bootstrap:
+tf-bootstrap-plan:
 	@terragrunt plan --terragrunt-working-dir terraform/bootstrap
 
-tf-apply-bootstrap:
+tf-bootstrap-apply:
 	@terragrunt apply --terragrunt-working-dir terraform/bootstrap
 
-tf-init-app:
+tf-bootstrap-destroy:
+	@terragrunt destroy --terragrunt-working-dir terraform/bootstrap
+
+tf-app-init:
 	@terragrunt init --terragrunt-working-dir terraform/app
 
-tf-plan-app:
+tf-app-plan:
 	@terragrunt plan --terragrunt-working-dir terraform/app
 
 tf-app-output-cname:
-	@terragrunt output cname --terragrunt-working-dir terraform/app
+	@terragrunt output -raw cname --terragrunt-working-dir terraform/app
 
-tf-apply-app:
+tf-app-apply:
 	@terragrunt apply --terragrunt-working-dir terraform/app --terragrunt-non-interactive --auto-approve
 
-tf-destroy-app:
+tf-app-destroy:
 	@terragrunt destroy --terragrunt-working-dir terraform/app
 
 docker-build:
