@@ -1,5 +1,5 @@
 unit-tests:
-	pytest
+	@poetry run pytest
 
 black:
 	black -l 86 $$(find * -name '*.py')
@@ -30,3 +30,6 @@ tf-destroy-app:
 
 docker-build:
 	@docker build -t mlops-intro .
+
+dvc-pull:
+	@dvc pull

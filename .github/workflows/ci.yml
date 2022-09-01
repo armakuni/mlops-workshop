@@ -23,6 +23,18 @@ jobs:
         python-version: "3.9.10"
     - name: Check platform
       run: python -c "import platform; print(platform.machine())"
+
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+    - name: Set up dvc
+      uses: iterative/setup-dvc@1
+    - name: Check out dvc files
+      run: make dvc-pull
+
     - name: Set up poetry
       uses: Gr1N/setup-poetry@v7
     - uses: actions/cache@v2
@@ -43,4 +55,4 @@ jobs:
         poetry install
     - name: Run unit tests
       run: |
-        poetry run pytest
+        make unit-tests
