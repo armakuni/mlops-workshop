@@ -1,11 +1,11 @@
-from flask import Flask, request
+from flask import Flask, request, render_template
 
 from mlops_api import model
 
 def add_routes(app: Flask):
     @app.route("/")
-    def hello():
-        return "Hello, World!"
+    def home():
+        return render_template("home.html")
 
     @app.route("/predict")
     def predict():

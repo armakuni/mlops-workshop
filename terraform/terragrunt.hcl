@@ -19,7 +19,7 @@ provider "aws" {
   region = "${local.region}"
   default_tags {
     tags = {
-      Owner       = "${get_env("OWNER_TAG")}"
+      Owner       = "ross.parkin@armakuni.com"
       Description     = "MLOps-Intro"
     }
   }
