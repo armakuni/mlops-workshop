@@ -15,9 +15,6 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Zip code for deployment
-      run: zip -r terraform/app/code-$COMMIT_ID.zip .
-
     - name: Set up Python 3.9.10
       uses: actions/setup-python@v3
       with:
@@ -37,29 +34,35 @@ jobs:
     - name: Check out dvc files
       run: make dvc-pull
 
-    - name: Set up poetry
-      uses: Gr1N/setup-poetry@v7
-    - uses: actions/cache@v2
-      with:
-        path: ~/.cache/pypoetry/virtualenvs
-        key: ${{ runner.os }}-poetry-${{ hashFiles('poetry.lock') }}
-    - run: poetry --version
+    - name: Build docker image
+      run: docker build -t mlops-intro .
 
-    - name: Install OS dependencies
-      run: |
-        sudo apt-get update && export DEBIAN_FRONTEND=noninteractive
-        sudo apt-get -y install --no-install-recommends \
-          build-essential \
-          libedit-dev  \
-          libhdf5-dev
-
-    - name: Install python libraries
-      run: |
-        poetry install
-        
     - name: Run unit tests
-      run: |
-        make unit-tests
+      run: docker run mlops-intro pytest
+
+    # - name: Set up poetry
+    #   uses: Gr1N/setup-poetry@v7
+    # - uses: actions/cache@v2
+    #   with:
+    #     path: ~/.cache/pypoetry/virtualenvs
+    #     key: ${{ runner.os }}-poetry-${{ hashFiles('poetry.lock') }}
+    # - run: poetry --version
+
+    # - name: Install OS dependencies
+    #   run: |
+    #     sudo apt-get update && export DEBIAN_FRONTEND=noninteractive
+    #     sudo apt-get -y install --no-install-recommends \
+    #       build-essential \
+    #       libedit-dev  \
+    #       libhdf5-dev
+
+    # - name: Install python libraries
+    #   run: |
+    #     poetry install
+
+    # - name: Run unit tests
+    #   run: |
+    #     make unit-tests
 
     - name: Install terraform
       uses: hashicorp/setup-terraform@v1
@@ -77,4 +80,6 @@ jobs:
         AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID}}
         AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}
         COMMIT_ID: ${{ github.sha }}
-      run: make tf-apply-app
+      run: |
+        zip -r terraform/app/code-$COMMIT_ID.zip .
+        make tf-apply-app
