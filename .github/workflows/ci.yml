@@ -72,4 +72,5 @@ jobs:
     - name: Smoke test
       run: |
         export API_HOST=$(make tf-app-output-cname)
+        echo $API_HOST
         docker run -e API_HOST=$API_HOST mlops-intro pytest tests/smoke
