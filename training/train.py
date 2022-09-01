@@ -1,10 +1,9 @@
 import json
 import os
-import pickle
 
 import pandas as pd
 
-from mlwrap import runners
+from mlwrap import io, runners
 from mlwrap.enums import AlgorithmType, DataType, FeatureType
 from mlwrap.config import InputData, MLConfig, Feature
 
@@ -35,13 +34,9 @@ with open("metrics.json", "w") as f:
     json.dump(scores, f)
 
 # save the model and encoders
-def save_pkl(path, obj):
-    dirname = os.path.dirname(path)
-    if not os.path.exists(dirname):
+dirname = 'models'
+if not os.path.exists(dirname):
         os.makedirs(dirname)
 
-    with open(path, "wb") as f:
-        pickle.dump(obj, f)
-
-save_pkl("models/model.pkl", results.model_bytes)
-save_pkl("models/encoder.pkl", results.encoder_bytes)
+io.save_pkl(results.model_bytes, "models/model.pkl")
+io.save_pkl(results.encoder_bytes, "models/encoder.pkl")
