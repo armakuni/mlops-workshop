@@ -31,7 +31,7 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
     - name: Set up dvc
-      uses: iterative/setup-dvc@1
+      uses: iterative/setup-dvc@v1
     - name: Check out dvc files
       run: make dvc-pull
 
