@@ -1,4 +1,3 @@
-import os
 import pandas as pd
 
 from mlwrap import io, runners
@@ -17,12 +16,12 @@ features = {
 
 def get_model():
     if MODEL not in cache:
-        cache[MODEL] = io.load_pkl("models/model.pkl")
+        cache[MODEL] = io.load_pkl("data/model.pkl")
     return cache[MODEL]
 
 def get_encoder():
     if ENCODER not in cache:
-        cache[ENCODER] = io.load_pkl("models/encoder.pkl")
+        cache[ENCODER] = io.load_pkl("data/encoder.pkl")
     return cache[ENCODER]
 
 def predict(year: int) -> list:

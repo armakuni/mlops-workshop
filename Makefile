@@ -33,3 +33,6 @@ docker-build:
 
 dvc-pull:
 	@dvc pull
+
+train:
+	@python mlops_api/train.py

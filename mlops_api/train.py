@@ -38,5 +38,5 @@ dirname = 'models'
 if not os.path.exists(dirname):
         os.makedirs(dirname)
 
-io.save_pkl(results.model_bytes, "models/model.pkl")
-io.save_pkl(results.encoder_bytes, "models/encoder.pkl")
+io.save_pkl(results.model_bytes, "data/model.pkl")
+io.save_pkl(results.encoder_bytes, "data/encoder.pkl")
