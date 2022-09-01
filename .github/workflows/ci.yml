@@ -47,7 +47,7 @@ jobs:
         cache-to: type=gha,mode=max
 
     - name: Run unit tests
-      run: docker run mlops-intro pytest
+      run: docker run mlops-intro pytest tests/unit
 
     - name: Install terraform
       uses: hashicorp/setup-terraform@v1
