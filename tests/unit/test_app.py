@@ -13,3 +13,13 @@ def test_predict(client):
     assert r.status_code == 200
     p = r.json['prediction']
     assert p > 0
+
+def test_predict_invalid_input(client):
+    year = "invalid"
+    r = client.get("/predict",
+        json={
+            "Year": year,
+        },)
+    
+    assert r.status_code == 404
+    
