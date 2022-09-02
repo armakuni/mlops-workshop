@@ -46,8 +46,8 @@ jobs:
         cache-from: type=gha
         cache-to: type=gha,mode=max
 
-    - name: Run unit tests
-      run: docker run mlops-intro pytest tests/unit
+    # - name: Run unit tests
+    #   run: docker run mlops-intro pytest tests/unit
 
     - name: Install terraform
       uses: hashicorp/setup-terraform@v1
@@ -65,12 +65,11 @@ jobs:
         AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID}}
         AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}
         COMMIT_ID: ${{ github.sha }}
-      run: |
-        zip -r terraform/app/code-$COMMIT_ID.zip .
-        make tf-app-apply
+      # run: |
+      #   zip -r terraform/app/code-$COMMIT_ID.zip .
+      #   make tf-app-apply
+      run: echo "API_HOST=$(make tf-app-output-cname)" >> $GITHUB_ENV
 
     - name: Smoke test
       run: |
-        export API_HOST=$(make tf-app-output-cname)
-        echo $API_HOST
-        docker run -e API_HOST=$API_HOST mlops-intro pytest tests/smoke
+        docker run -e API_HOST=${{ env.API_HOST}} mlops-intro pytest tests/smoke
