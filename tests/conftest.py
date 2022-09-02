@@ -20,7 +20,8 @@ def app():
 
 @pytest.fixture()
 def client(app):
-    return app.test_client()
+    client = app.test_client()
+    return client
 
 
 @pytest.fixture()
