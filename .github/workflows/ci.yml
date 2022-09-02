@@ -29,28 +29,30 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: eu-west-2
 
-    - name: Set up dvc
-      uses: iterative/setup-dvc@v1
-    - name: Check out dvc files
-      run: make dvc-pull
+    # - name: Set up dvc
+    #   uses: iterative/setup-dvc@v1
+    # - name: Check out dvc files
+    #   run: make dvc-pull
 
-    - name: Setup docker buildx
-      uses: docker/setup-buildx-action@v1
+    # - name: Setup docker buildx
+    #   uses: docker/setup-buildx-action@v1
 
-    - name: Build docker image
-      uses: docker/build-push-action@v2
-      with:
-        context: .
-        load: true
-        tags: mlops-intro
-        cache-from: type=gha
-        cache-to: type=gha,mode=max
+    # - name: Build docker image
+    #   uses: docker/build-push-action@v2
+    #   with:
+    #     context: .
+    #     load: true
+    #     tags: mlops-intro
+    #     cache-from: type=gha
+    #     cache-to: type=gha,mode=max
 
     # - name: Run unit tests
     #   run: docker run mlops-intro pytest tests/unit
 
     - name: Install terraform
       uses: hashicorp/setup-terraform@v1
+      with:
+        terraform_wrapper: false
 
     - name: Setup Terragrunt
       uses: autero1/action-terragrunt@v1.1.0
@@ -60,16 +62,17 @@ jobs:
     - name: Check Terragrunt
       run: terragrunt --version
 
-    - name: Terragrunt apply
-      env:
-        AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID}}
-        AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}
-        COMMIT_ID: ${{ github.sha }}
-      # run: |
-      #   zip -r terraform/app/code-$COMMIT_ID.zip .
-      #   make tf-app-apply
-      run: echo "API_HOST=$(make tf-app-output-cname)" >> $GITHUB_ENV
-
+    # - name: Terragrunt apply
+    #   env:
+    #     AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID}}
+    #     AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+    #     COMMIT_ID: ${{ github.sha }}
+    #   run: |
+    #     zip -r terraform/app/code-$COMMIT_ID.zip .
+    #     make tf-app-apply
+      
     - name: Smoke test
       run: |
-        docker run -e API_HOST=${{ env.API_HOST}} mlops-intro pytest tests/smoke
+        API_HOST=$(make tf-app-output-cname)
+        echo $API_HOST
+        docker run -e API_HOST=$API_HOST mlops-intro pytest tests/smoke
