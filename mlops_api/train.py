@@ -1,12 +1,11 @@
-import json
-import os
-
+import logging
 import pandas as pd
 
-from mlwrap import io, runners
-from mlwrap.enums import AlgorithmType, DataType, FeatureType
-from mlwrap.config import InputData, MLConfig, Feature
+from mlwrap import io, runners, scores
+from mlwrap.enums import AlgorithmType, FeatureType
+from mlwrap.config import MLConfig, Feature
 
+logging.getLogger().setLevel(logging.DEBUG)
 
 # read in the data
 df = pd.read_csv("data/cleaned.csv")
@@ -22,21 +21,11 @@ config = MLConfig(
             algorithm_type=AlgorithmType.SklearnLinearModel,
             features=features,
             model_feature_id="Total",
-            input_data=InputData(data_type=DataType.DataFrame, data_frame=df),
         )
 
 # train the model
-results = runners.train(config)
+results = runners.train(config, df)
+scores.print_scores(results.scores)
 
-# output the metrics
-scores = { k.name: float(v) for k,v in results.scores.items() }
-with open("metrics.json", "w") as f:
-    json.dump(scores, f)
-
-# save the model and encoders
-dirname = 'models'
-if not os.path.exists(dirname):
-        os.makedirs(dirname)
-
-io.save_pkl(results.model_bytes, "data/model.pkl")
-io.save_pkl(results.encoder_bytes, "data/encoder.pkl")
+# save the model
+io.save_model(results.model, "data/model.pkl")
