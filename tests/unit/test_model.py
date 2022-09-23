@@ -1,5 +1,3 @@
-import pandas as pd
-
 from mlops_api import model
 
 def test_get_model():
