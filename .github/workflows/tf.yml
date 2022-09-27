@@ -3,6 +3,8 @@ on:
   push:
     branches:
       - '**'
+    paths:
+      - 'terraform/**'
 
 permissions:
   contents: read
@@ -48,3 +50,29 @@ jobs:
 
     - name: Run unit tests
       run: docker run mlops-intro pytest tests/unit
+
+    - name: Install terraform
+      uses: hashicorp/setup-terraform@v2
+      with:
+        terraform_wrapper: false
+
+    - name: Setup Terragrunt
+      uses: autero1/action-terragrunt@v1.1.0
+      with:
+        terragrunt_version: latest
+
+    - name: Check Terragrunt
+      run: terragrunt --version
+
+    - name: Terragrunt apply
+      env:
+        COMMIT_ID: ${{ github.sha }}
+      run: |
+        zip -r terraform/app/code-$COMMIT_ID.zip .
+        make tf-app-apply
+      
+    - name: Smoke test
+      run: |
+        API_HOST=$(make tf-app-output-cname)
+        echo $API_HOST
+        docker run -e API_HOST=$API_HOST mlops-intro pytest tests/smoke
