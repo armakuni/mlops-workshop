@@ -2,6 +2,7 @@ import logging
 import pandas as pd
 
 from mlwrap import io, runners, scores
+from mlwrap.algorithms import get_sklearn_linear_model
 from mlwrap.config import MLConfig
 from mlwrap.enums import ProblemType
 
@@ -13,7 +14,8 @@ df = pd.read_csv("data/cleaned.csv")
 # set up the config object
 config = MLConfig(
             model_feature_id="Total",
-            problem_type=ProblemType.Regression
+            problem_type=ProblemType.Regression,
+            algorithm=get_sklearn_linear_model(problem_type=ProblemType.Regression)
         )
 
 # train the model
