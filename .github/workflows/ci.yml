@@ -22,6 +22,12 @@ jobs:
 
     - uses: actions/checkout@v3
 
+    - name: Zip the repo code
+      env:
+        COMMIT_ID: ${{ github.sha }}
+      run: |
+        zip -r terraform/app/code-$COMMIT_ID.zip .
+
     - name: Set up Python 3.9.10
       uses: actions/setup-python@v3
       with:
@@ -49,20 +55,23 @@ jobs:
     - name: Run model training
       run: make train
 
-    - name: Setup docker buildx
-      uses: docker/setup-buildx-action@v1
+    # - name: Setup docker buildx
+    #   uses: docker/setup-buildx-action@v1
 
-    - name: Build docker image
-      uses: docker/build-push-action@v2
-      with:
-        context: .
-        load: true
-        tags: mlops-intro
-        cache-from: type=gha
-        cache-to: type=gha,mode=max
+    # - name: Build docker image
+    #   uses: docker/build-push-action@v2
+    #   with:
+    #     context: .
+    #     load: true
+    #     tags: mlops-intro
+    #     cache-from: type=gha
+    #     cache-to: type=gha,mode=max
+
+    # - name: Run unit tests
+    #   run: docker run mlops-intro pytest tests/unit
 
     - name: Run unit tests
-      run: docker run mlops-intro pytest tests/unit
+      run: make unit-tests
 
     - name: Install terraform
       uses: hashicorp/setup-terraform@v2
@@ -81,4 +90,4 @@ jobs:
       env:
         COMMIT_ID: ${{ github.sha }}
       run: |
-        zip -r terraform/app/code-$COMMIT_ID.zip .
+        echo $(ls terraform/app)
