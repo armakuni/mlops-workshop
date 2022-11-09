@@ -1,5 +1,5 @@
 unit-tests:
-	@pytest tests/unit
+	@poetry run pytest tests/unit
 
 black:
 	black -l 86 $$(find * -name '*.py')
