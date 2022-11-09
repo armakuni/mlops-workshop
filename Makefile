@@ -50,7 +50,7 @@ dvc-pull:
 train:
 	@poetry run python src/train.py
 
-data_prep:
+data-prep:
 	@poetry run python src/data_prep.py
 
 streamlit:

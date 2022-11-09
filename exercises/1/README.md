@@ -60,10 +60,17 @@ You can then browse to the app and make a prediction using the UI.
 
 In this exercise we've bundled everything in one repo and one CI script. What are the pro's and con's to doing this?
 
-## Smoke test the app
+## Stretched target: Smoke test the app
 
-As a stretched target, we can use the smoke test in `tests/smoke` to call our endpoint and check that it is working ok.
+If you don't have time for this then skip on. Otherwise, as a stretched target, we can use the smoke test in `tests/smoke` to call our endpoint and check that it is working ok.
 
 Hints:
 - To get the url of the deployed app you can use `make tf-app-output-cname`
 - To run the smoke test you can use `docker run -e API_HOST=$API_HOST mlops-intro pytest tests/smoke`
+
+## Clean-up
+
+Be kind and rewind. By that I mean please destroy any AWS resources that you created:
+- To remove the deployment you can manually run `make tf-app-destroy`
+- To remove the bootstrap resources, manually run `make tf-bootstrap-destroy`
+- To remove the remote state bucket, the easiest thing to do is log on to the AWS console and delete it.

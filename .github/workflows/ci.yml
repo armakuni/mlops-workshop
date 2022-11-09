@@ -44,7 +44,7 @@ jobs:
         poetry install
 
     - name: Run data prep
-      run: make data_prep
+      run: make data-prep
 
     - name: Run model training
       run: make train
