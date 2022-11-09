@@ -75,7 +75,7 @@ resource "aws_elastic_beanstalk_application_version" "eb_app_version" {
   application = aws_elastic_beanstalk_application.eb_app.name
   bucket      = aws_s3_bucket.s3_bucket_eb_app.id
   key         = aws_s3_object.s3_object_eb_app.id
-  name        = "${var.app_version_name}-${random_string.random_id.result}"
+  name        = "${var.app_version_name}"
 }
 
 ################################################################################

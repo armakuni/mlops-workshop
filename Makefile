@@ -16,6 +16,9 @@ tf-bootstrap-plan:
 tf-bootstrap-apply:
 	@terragrunt apply --terragrunt-working-dir terraform/bootstrap
 
+tf-bootstrap-output-secret:
+	@terragrunt output --terragrunt-working-dir terraform/bootstrap secret_access_key
+
 tf-bootstrap-destroy:
 	@terragrunt destroy --terragrunt-working-dir terraform/bootstrap
 

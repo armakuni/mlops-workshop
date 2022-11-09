@@ -7,7 +7,7 @@ For this exercise we will aim to build a full MLOps pipeline from data processin
 Here's a summary of what we will cover:
 - write a data processing script
 - write a model training script
-- implement code in the Flask app to use the model and get the tests passing - note that the smoke test will fail so don't worry about that
+- implement code in the Flask app to use the model and get the tests passing
 - Write a CI script (GitHub Action) that:
     - runs the data prep script
     - runs the model training script
@@ -35,6 +35,12 @@ To train the model, write a model training script that reads in the processed da
 
 As with the processed data, we'll use DVC to check in the file To update the trained model in remote storage, see the instructions in the "Remote storage of processed data and model" section.
 
+## Get unit tests passing
+
+The app code that we'll use to ship the model resides in the `mlops_api` folder. There are some unit tests already written for the app but they will be failing. 
+
+Your goal is to implement the predict method in `mlops_api/model` and get the tests passing. Note that the smoke test will fail so don't worry about that, we just won't run that as a unit test in CI.
+
 ## Deployment
 
 We'll deploy the app to AWS Elastic Beanstalk. The bulk of the code is provided for this.
@@ -49,6 +55,8 @@ To get started, we need to create the remote state bucket and an application IAM
 The bootstrapping will create an IAM user that we can run the CI as. If you peek at the GitHub action in ci.yml you'll see that we need to define two secrets for the CI script to work: AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY. At the time of writing the terraform doesn't output these so the easiest thing to do is log into the AWS console and generate a new access key, then copy down the key id and secret. Then log into GitHub and add these as repository secrets by going to Settings -> Secrets -> Actions -> then click on the "New repository secret" button.
 
 Once that has ran, we could deploy the app manually using `make tf-app-apply` but we can be cooler than that. So, alternatively, for continuous deployment, the repo can be hooked up to a Github Action to run unit tests and deploy the Flask app to AWS Beanstalk. See the ci.yml file for further details - this may not get cloned if you fork the repo so refer back to the source if it's missing.
+
+(Note: because you forked the repo you'll probably find that GitHub actions are disabled, so you'll need to log on to GitHub and click on Actions, then the acknowledge button). 
 
 Your goal is to fill in the missing line in the 'Terragrunt apply' step. To explain what's going on here, we zip up the repo code early on in the CI script as that is what we will pass to AWS, then when the Beanstalk app is deployed AWS uses the Dockerfile and builds an image. We need to set the `COMMIT_ID` environment variable in this step so that the terraform code can pick it up and work out the file name of the zip.
 
@@ -67,8 +75,8 @@ In this exercise we've bundled everything in one repo and one CI script. What ar
 If you don't have time for this then skip on. Otherwise, as a stretched target, we can use the smoke test in `tests/smoke` to call our endpoint and check that it is working ok.
 
 Hints:
-- To get the url of the deployed app you can use `make tf-app-output-cname`
-- To run the smoke test you can use `docker run -e API_HOST=$API_HOST mlops-intro pytest tests/smoke`
+- To get the url of the deployed app you can use `API_HOST=$(make tf-app-output-cname)`
+- To run the smoke test you can use `docker run -e API_HOST=$API_HOST poetry run pytest tests/smoke`
 
 ## Clean-up
 
