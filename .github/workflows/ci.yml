@@ -53,6 +53,8 @@ jobs:
       env:
         COMMIT_ID: ${{ github.sha }}
       run: |
+        git config --global user.email "this@pointless.com"
+        git config --global user.name "Admiral Pointless"
         git add -f models/model.pkl
         git commit -m 'Added model'
         git archive -o terraform/app/code-$COMMIT_ID.zip HEAD
