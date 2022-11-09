@@ -14,6 +14,7 @@ exercises
 notebooks
 terraform
 requirements.txt
+images
 
 # beanstalk
 Dockerrun.aws.json

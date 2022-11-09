@@ -52,7 +52,7 @@ To get started, we need to create the remote state bucket and an application IAM
 - in `terraform/terragrunt.hcl`, edit the `owner` and `remote_state_name` variables in the `locals` block towards the top of the file
 - then run `make tf-bootstrap-apply`
 
-The bootstrapping will create an IAM user that we can run the CI as. If you peek at the GitHub action in ci.yml you'll see that we need to define two secrets for the CI script to work: AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY. At the time of writing the terraform doesn't output these so the easiest thing to do is log into the AWS console and generate a new access key, then copy down the key id and secret. Then log into GitHub and add these as repository secrets by going to Settings -> Secrets -> Actions -> then click on the "New repository secret" button.
+The bootstrapping will create an IAM user that we can use in the CI script to log into AWS. If you peek at the GitHub action in ci.yml you'll see that we need to define two secrets for the CI script to work: AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY. The first is output by terraform whereas the latter is sensitive so you need to specificially peek at it by typing `make tf-bootstrap-output-secret`. Then log into GitHub and add these as repository secrets by going to Settings -> Secrets -> Actions -> then click on the "New repository secret" button.
 
 Once that has ran, we could deploy the app manually using `make tf-app-apply` but we can be cooler than that. So, alternatively, for continuous deployment, the repo can be hooked up to a Github Action to run unit tests and deploy the Flask app to AWS Beanstalk. See the ci.yml file for further details - this may not get cloned if you fork the repo so refer back to the source if it's missing.
 
