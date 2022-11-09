@@ -39,6 +39,10 @@ jobs:
         
     - run: poetry --version
 
+    - name: Install python libs
+      run: |
+        poetry install
+
     - name: Run data prep
       run: make data_prep
 
