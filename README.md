@@ -11,6 +11,8 @@ The subject of the repo is a web app which predicts the number of vehicle charge
 - a training script is used to generate a model
 - model is deployed
 
+![Schematic](images/schematic.jpg)
+
 ## Getting Started
 
 These instructions will help you get up and running on your local machine. Deployment instructions are provided further down.
