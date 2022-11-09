@@ -8,7 +8,7 @@ locals {
     {
       namespace = "aws:autoscaling:launchconfiguration"
       name      = "IamInstanceProfile"
-      value     = "${var.eb_name}-ec2-role"
+      value     = "${var.eb_name}-${random_string.random_id.result}-ec2-role"
     },
     {
       namespace = "aws:autoscaling:launchconfiguration"
@@ -38,7 +38,7 @@ locals {
     {
       namespace = "aws:elasticbeanstalk:environment"
       name      = "ServiceRole"
-      value     = "${var.eb_name}-service-role"
+      value     = "${var.eb_name}-${random_string.random_id.result}-service-role"
     },
     {
       namespace = "aws:elasticbeanstalk:environment"

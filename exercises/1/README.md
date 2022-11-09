@@ -50,7 +50,9 @@ The bootstrapping will create an IAM user that we can run the CI as. If you peek
 
 Once that has ran, we could deploy the app manually using `make tf-app-apply` but we can be cooler than that. So, alternatively, for continuous deployment, the repo can be hooked up to a Github Action to run unit tests and deploy the Flask app to AWS Beanstalk. See the ci.yml file for further details - this may not get cloned if you fork the repo so refer back to the source if it's missing.
 
-Your goal is to fill in the missing line in the 'Terragrunt apply' step. Hint: it's the same command you would use to manually deploy the app.
+Your goal is to fill in the missing line in the 'Terragrunt apply' step. To explain what's going on here, we zip up the repo code early on in the CI script as that is what we will pass to AWS, then when the Beanstalk app is deployed AWS uses the Dockerfile and builds an image. We need to set the `COMMIT_ID` environment variable in this step so that the terraform code can pick it up and work out the file name of the zip.
+
+(Hint: it's the same command you would use to manually deploy the app.)
 
 Once the app has deployed, you should be able to see the url in the terraform output.
 
