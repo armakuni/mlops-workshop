@@ -1,5 +1,5 @@
 resource "aws_iam_user" "mlops_user" {
-  name = "mlops-intro-user"
+  name = "mlops-intro-user-${random_string.random_id.result}"
   path = "/system/"
 }
 
@@ -8,7 +8,7 @@ resource "aws_iam_access_key" "access_key" {
 }
 
 resource "aws_iam_user_policy" "lb_ro" {
-  name = "mlops-intro-user-profile"
+  name = "mlops-intro-user-profile-${random_string.random_id.result}"
   user = aws_iam_user.mlops_user.name
 
   policy = <<EOF

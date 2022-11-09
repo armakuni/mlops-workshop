@@ -140,4 +140,6 @@ terragrunt
 
 # data
 metrics.json
-/data
+/data/processed
+*.pickle
+*.pkl

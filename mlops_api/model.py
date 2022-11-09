@@ -1,6 +1,6 @@
-import pandas as pd
+from datetime import datetime
 
-from mlwrap import io
+import statsmodels.api as sm
 
 cache = dict()
 
@@ -8,12 +8,12 @@ MODEL = 'model'
 
 def get_model():
     if MODEL not in cache:
-        cache[MODEL] = io.load_model("data/model.pkl")
+        cache[MODEL] = sm.load_pickle("models/model.pkl")
     return cache[MODEL]
 
 
 def predict(year: int) -> list:
     model = get_model()
-    df = pd.DataFrame(data={'Year' : [year]})
-    prediction = model.predict(df)
+    dt = datetime(year, 1, 1)
+    prediction = model.predict(start=dt, end=dt, dynamic=False)
     return prediction[0]

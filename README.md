@@ -25,7 +25,8 @@ To be able to build, test, and deploy you will need:
 
 For development, you will need some extra tools:
 - Terraform
-- VS Code (ideally - I haven't tried pyCharm)
+- Terragrunt
+- Python IDE (ideally VS Code as I haven't tried pyCharm)
 - Docker
 - DVC
 - AWS credentials
@@ -58,37 +59,17 @@ DVC is used to allow a pointer file to be checked in to the repo and artefacts t
 
 To set up DVC, we need an s3 bucket. For convencience, we can use the remote state bucket from our terraform deployment, so jump ahead a little and run `make tf-bootstrap-apply` - see the Deployment section for more details.
 
-Prior to updating the data file (data/cleaned.csv) or the model file (data/model.pkl) we need to run `make dvc-remove` to remove the pointer file. Note that the data folder is in the .gitignore. The process for updating data/model therefore goes as:
+When you get to the point of updating the data file (data/processed/cleaned.csv) or the model file (models/model.pkl) we need to run `make dvc-remove` to remove the pointer file. Note that the data folder is in the .gitignore. The process for updating data/model therefore goes as:
 - remove .dvc pointer file
 - make changes
 - create new .dvc file by re-adding the files to dvc
 - push files to remote storage
 - commit pointer file to git repo
 
-Once you have made your changes to the files in the data folder, type ` make dvc-push` to add the new pointer file to git and push it to remote storage.
+Once you have made your changes to the files in the data folder, type `make dvc-push` to add the new pointer file to git and push it to remote storage.
 
 Note that DVC can silently fail if you don't have valid AWS credentials, so beware.
 
-### Data processing
+## Exercises
 
-To convert the data, run the data_processing notebook. This will create a file called data/cleaned.csv which we can use to train an ML model.
-
-To update the processed data in remote storage, see the instructions in the "Remote storage of processed data and model" section.
-
-### Model training
-
-To train the model, run `make train`. The output is written to data/model.pkl.
-
-To update the trained model in remote storage, see the instructions in the "Remote storage of processed data and model" section.
-
-### Deployment
-
-To deploy the app, the first thing we need to do is get the remote state bucket created and an application IAM user via `make tf-bootstrap-apply`.
-
-Once that has ran, we can deploy the app manually using `make tf-app-apply`.
-
-Alternatively, for continuous deployment, the repo can be hooked up to a Github Action to run unit tests and deploy the Flask app to AWS Beanstalk. See the ci.yml file for further details - this may not get cloned if you fork the repo.
-
-Once the app has deployed, you should be able to see the url in the terraform output.
-
-You can then browse to the app and make a prediction using the UI.
+There are exercises to work through in the exercises folder. Make sure you've forked the repo!

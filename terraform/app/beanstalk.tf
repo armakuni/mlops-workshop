@@ -68,14 +68,14 @@ locals {
 ################################################################################
 
 resource "aws_elastic_beanstalk_application" "eb_app" {
-  name = var.eb_name
+  name = "${var.eb_name}-${random_string.random_id.result}"
 }
 
 resource "aws_elastic_beanstalk_application_version" "eb_app_version" {
   application = aws_elastic_beanstalk_application.eb_app.name
   bucket      = aws_s3_bucket.s3_bucket_eb_app.id
   key         = aws_s3_object.s3_object_eb_app.id
-  name        = var.app_version_name
+  name        = "${var.app_version_name}-${random_string.random_id.result}"
 }
 
 ################################################################################
@@ -83,7 +83,7 @@ resource "aws_elastic_beanstalk_application_version" "eb_app_version" {
 ################################################################################
 
 resource "aws_elastic_beanstalk_environment" "eb_env" {
-  name                = var.eb_name
+  name                = "${var.eb_name}-${random_string.random_id.result}"
   application         = aws_elastic_beanstalk_application.eb_app.name
   solution_stack_name = "64bit Amazon Linux 2 v3.4.18 running Docker"
   version_label       = aws_elastic_beanstalk_application_version.eb_app_version.name
@@ -103,7 +103,7 @@ resource "aws_elastic_beanstalk_environment" "eb_env" {
 ################################################################################
 
 resource "aws_s3_bucket" "s3_bucket_eb_app" {
-  bucket = "${var.eb_name}"
+  bucket = "${var.eb_name}-${random_string.random_id.result}"
 }
 
 resource "aws_s3_bucket_acl" "s3_bucket_acl" {

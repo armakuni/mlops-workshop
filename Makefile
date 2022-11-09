@@ -48,7 +48,10 @@ dvc-pull:
 	@dvc pull
 
 train:
-	@python mlops_api/train.py
+	@poetry run python src/train.py
+
+data_prep:
+	@poetry run python src/data_prep.py
 
 streamlit:
-	@PYTHONPATH=${PYTHONPATH}:${PWD} streamlit run model/streamlit_app.py
+	@PYTHONPATH=${PYTHONPATH}:${PWD} streamlit run src/streamlit_app.py

@@ -4,6 +4,8 @@ terraform {
 
 locals {
   region = "eu-west-2"
+  owner = "ross.parkin@armakuni.com"
+  remote_state_name = "mlops-intro-remote-state-rp"
 }
 
 generate "provider" {
@@ -19,7 +21,7 @@ provider "aws" {
   region = "${local.region}"
   default_tags {
     tags = {
-      Owner       = "ross.parkin@armakuni.com"
+      Owner       = "${local.owner}"
       Description     = "MLOps-Intro"
     }
   }
@@ -31,10 +33,10 @@ EOF
 remote_state {
     backend = "s3"
     config = {
-        bucket         = "mlops-intro-remote-state"
+        bucket         = "${local.remote_state_name}"
         key            = "${path_relative_to_include()}/terraform.tfstate"
         region         = "${local.region}"
-        dynamodb_table = "mlops-intro-remote-state"
+        dynamodb_table = "${local.remote_state_name}"
         encrypt        = true
     }
 }

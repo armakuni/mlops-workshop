@@ -1,11 +1,19 @@
+# config
 .devcontainer
 .github
 .mypy_cache
 .pytest_cache
-README.md
-notebooks
-requirements.txt
-terraform
 .venv
 .vscode
+.dvc
+
+# repo content
+README.md
+data
+exercises
+notebooks
+terraform
+requirements.txt
+
+# beanstalk
 Dockerrun.aws.json
