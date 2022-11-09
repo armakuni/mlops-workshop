@@ -12,8 +12,6 @@ def get_model():
     return cache[MODEL]
 
 
-def predict(year: int) -> list:
+def predict(year: int) -> float:
     model = get_model()
-    dt = datetime(year, 1, 1)
-    prediction = model.predict(start=dt, end=dt, dynamic=False)
-    return prediction[0]
+    pass
