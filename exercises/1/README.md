@@ -25,7 +25,7 @@ First things first, make sure you've set up your virtual environment and run thr
 
 ## Data processing
 
-To convert the data, write a data prep script. I'd recommend calling this `src/train.py`. This should create a file called `data/processed/cleaned.csv` which we can use to train an ML model.
+To convert the data, write a data prep script. I'd recommend calling this `src/data_prep.py`. This should create a file called `data/processed/cleaned.csv` which we can use to train an ML model.
 
 We don't want to check the file directly into git, instead we're going to use DVC to push the file to remote storage. For more details on this see the instructions in the "Remote storage of processed data and model" section of the main readme.
 
