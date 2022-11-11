@@ -5,7 +5,7 @@ terraform {
 locals {
   region = "eu-west-2"
   owner = "ross.parkin@armakuni.com"
-  remote_state_name = "mlops-intro-remote-state-rp"
+  remote_state_name = "mlops-intro-remote-state-rp-new"
 }
 
 generate "provider" {

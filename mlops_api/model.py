@@ -14,4 +14,6 @@ def get_model():
 
 def predict(year: int) -> float:
     model = get_model()
-    pass
+    dt = datetime(year, 1, 1)
+    prediction = model.predict(start=dt, end=dt, dynamic=False)
+    return prediction[0]
