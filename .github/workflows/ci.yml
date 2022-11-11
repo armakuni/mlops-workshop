@@ -80,3 +80,4 @@ jobs:
         COMMIT_ID: ${{ github.sha }}
       run: |
         echo $(ls terraform/app)
+        make tf-app-apply
